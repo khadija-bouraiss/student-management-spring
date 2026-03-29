@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Student</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #f093fb 0%, #667eea 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(240, 147, 251, 0.3);
+            width: 420px;
+        }
+        h2 {
+            text-align: center;
+            color: #6a0dad;
+            margin-bottom: 30px;
+            font-size: 26px;
+        }
+        .form-group { margin-bottom: 20px; }
+        label {
+            display: block;
+            color: #7b2d8b;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e0aaff;
+            border-radius: 10px;
+            font-size: 15px;
+            outline: none;
+            transition: 0.3s;
+        }
+        input[type="text"]:focus {
+            border-color: #9b59b6;
+            box-shadow: 0 0 0 3px rgba(155, 89, 182, 0.2);
+        }
+        .error { color: #e74c3c; font-size: 13px; margin-top: 4px; }
+        input[type="submit"] {
+            width: 100%;
+            padding: 13px;
+            background: linear-gradient(135deg, #f093fb, #9b59b6);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+        input[type="submit"]:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(240, 147, 251, 0.4);
+        }
+        .back-link { text-align: center; margin-top: 20px; }
+        .back-link a { color: #9b59b6; text-decoration: none; font-weight: 500; }
+        .back-link a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+<div class="card">
+    <h2>✏️ Update Student</h2>
+    <form action="#" th:action="@{/update/{id}(id=${student.id})}" th:object="${student}" method="post">
+        <div class="form-group">
+            <label for="fullName">Full Name</label>
+            <input type="text" th:field="*{fullName}" id="fullName" placeholder="Enter full name">
+            <span class="error" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></span>
+        </div>
+        <div class="form-group">
+            <label for="studentEmail">Email</label>
+            <input type="text" th:field="*{studentEmail}" id="studentEmail" placeholder="Enter email">
+            <span class="error" th:if="${#fields.hasErrors('studentEmail')}" th:errors="*{studentEmail}"></span>
+        </div>
+        <input type="submit" value="Update Student">
+    </form>
+    <div class="back-link">
+        <a href="/index">← Back to list</a>
+    </div>
+</div>
+</body>
+</html>

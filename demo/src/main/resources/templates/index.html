@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Student List</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #f093fb 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #9b59b6, #f093fb);
+            padding: 30px;
+            text-align: center;
+            color: white;
+        }
+        .header h1 { font-size: 28px; }
+        .header p { opacity: 0.85; margin-top: 5px; }
+        .content { padding: 30px; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        thead tr {
+            background: linear-gradient(135deg, #e0aaff, #f8c8ff);
+        }
+        th {
+            padding: 14px 16px;
+            text-align: left;
+            color: #6a0dad;
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+        td {
+            padding: 14px 16px;
+            border-bottom: 1px solid #f3e8ff;
+            color: #444;
+        }
+        tr:hover td { background: #fdf4ff; }
+        .btn-edit {
+            background: linear-gradient(135deg, #9b59b6, #c39bd3);
+            color: white;
+            padding: 7px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        .btn-edit:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(155, 89, 182, 0.4);
+        }
+        .btn-delete {
+            background: linear-gradient(135deg, #f093fb, #e74c3c);
+            color: white;
+            padding: 7px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        .btn-delete:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);
+        }
+        .empty { text-align: center; color: #aaa; padding: 40px; font-size: 18px; }
+        .add-btn {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 13px 30px;
+            background: linear-gradient(135deg, #9b59b6, #f093fb);
+            color: white;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+        .add-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(155, 89, 182, 0.4);
+        }
+        .footer { text-align: center; padding-bottom: 30px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>🎓 Student Management</h1>
+        <p>Manage your students easily</p>
+    </div>
+    <div class="content">
+        <div th:switch="${students}">
+            <div class="empty" th:case="null">No students yet! Add your first one 👇</div>
+            <div th:case="*">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Full Name</th>
+                        <th>Email</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="student : ${students}">
+                        <td th:text="${student.fullName}"></td>
+                        <td th:text="${student.studentEmail}"></td>
+                        <td><a class="btn-edit" th:href="@{/edit/{id}(id=${student.id})}">✏️ Edit</a></td>
+                        <td><a class="btn-delete" th:href="@{/delete/{id}(id=${student.id})}">🗑️ Delete</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <a class="add-btn" href="/register">+ Add New Student</a>
+    </div>
+</div>
+</body>
+</html>
